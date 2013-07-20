@@ -122,7 +122,7 @@ function commerce_zarinpalzg_build_redirect_form($form, &$form_state, $order, $s
   $nusoap_path = drupal_get_path('module', 'commerce_zarinpalzg') . '/nusoap.php';
   include_once($nusoap_path);
   
-  $client = new nusoap_client('https://www.zarinpal.com/pg/services/WebGate/wsdl', 'wsdl');
+  $client = new nusoap_client('https://de.zarinpal.com/pg/services/WebGate/wsdl', 'wsdl');
   $res = $client->call('PaymentRequest', $data);
   
   // Redirect to zarinpalzg URL
@@ -154,7 +154,7 @@ function commerce_zarinpalzg_redirect_form_validate($order, $payment_method) {
   $amount = (int)$wrapper->commerce_order_total->amount->value()/1000;
   
   if (isset($_GET['Authority']) AND $_GET['Status'] == "OK" ) {
-    $client = new nusoap_client('https://www.zarinpal.com/pg/services/WebGate/wsdl', 'wsdl');
+    $client = new nusoap_client('https://de.zarinpal.com/pg/services/WebGate/wsdl', 'wsdl');
     $res = $client->call("PaymentVerification", array(
 		
 			array(
