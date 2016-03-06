@@ -126,12 +126,12 @@ function commerce_zarinpalzg_build_redirect_form($form, &$form_state, $order, $s
   $res = $client->call('PaymentRequest', $data);
   
   // Redirect to zarinpalzg URL
-  if($res->Status == 100 )
+  if($res['Status'] == 100 )
   {
-	  $url = 'hhttps://www.zarinpal.com/pg/StartPay/' . $result->Authority . '/ZarinGate';
+	  $url = 'hhttps://www.zarinpal.com/pg/StartPay/' . $result['Authority'] . '/ZarinGate';
 	  $form['#action'] = $url;
   }else{
-	  $form['#action'] = $res->Status;
+	  $form['#action'] = $res['Status'];
   }
   $form['submit'] = array(
     '#type' => 'submit',
@@ -162,9 +162,9 @@ function commerce_zarinpalzg_redirect_form_validate($order, $payment_method) {
 					'Authority' 	 => $_GET['Authority'] ,
 					'Amount'	 	=> $amount
 				)));
-    $feedback = array(
-      'result' => $res->Status,
-      'remote_id' => $res->RefID,
+	$feedback = array(
+      'result' => $res['Status'],
+      'remote_id' => $res['RefID'],
       'au' => $_GET['Authority'],
     );
     if ($res->Status == 100) {
